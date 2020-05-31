@@ -1,0 +1,12 @@
+node_modules/
+.cache/
+.tmp/
+dist/
+dist-ts/
+dist-dev/
+dist-app/
+gen/
+public/
+
+# Exclude logs
+*.log

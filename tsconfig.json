@@ -1,0 +1,26 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es2017",
+    "sourceMap": true,
+    "inlineSources": true,
+    "outDir": "./dist-dev",
+    "jsx": "react",
+
+    "declaration": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "noUnusedLocals": true,
+    "strictNullChecks": true,
+    "strictPropertyInitialization": true,
+    "preserveWatchOutput": true,
+
+    "moduleResolution": "node",
+    "lib": ["es2017", "dom"]
+  },
+  "include": ["packages/**/*.ts"],
+  "exclude": ["**/node_modules/", "**/dist/"]
+}
