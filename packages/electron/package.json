@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "appname-dev",
+  "name": "electron-typescript-starter-dev",
   "description": "The development package.json only to run electron in development.",
   "version": "0.0.0",
   "main": "../../dist-dev/entry.js",

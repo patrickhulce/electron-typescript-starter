@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "appname",
+  "name": "electron-typescript-starter",
   "description": "The production package.json for the published app.",
   "version": "1.0.0",
   "scripts": {
