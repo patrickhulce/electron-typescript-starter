@@ -10,6 +10,9 @@
   "repository": "https://github.com/patrickhulce/electron-typescript-starter.git",
   "author": "Patrick Hulce <patrick.hulce@gmail.com>",
   "license": "MIT",
+  "dependencies": {
+    "electron-log": "^4.2.0"
+  },
   "devDependencies": {
     "electron": "^9.0.0",
     "electron-builder": "^22.7.0",
