@@ -1,5 +1,7 @@
+import * as path from 'path'
 import {app, BrowserWindow} from 'electron'
 import {createLogger} from '../../../shared/src/utils/logging'
+import {findFrontendDirectory} from '../utils/filesystem'
 
 const log = createLogger('electron:main')
 
@@ -11,7 +13,7 @@ app.once('ready', () => {
     minHeight: 400,
   })
 
-  window.loadURL('data:text/html;<!DOCTYPE html><h1>Hello World')
+  window.loadFile(path.join(findFrontendDirectory(), 'index.html'))
   window.once('ready-to-show', () => {
     log.info('app is visible')
     window.show()
