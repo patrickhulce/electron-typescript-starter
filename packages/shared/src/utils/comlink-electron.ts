@@ -94,7 +94,7 @@ export class ComlinkElectron {
     })
   }
 
-  public serialize(o: any): string {
+  public serialize(o: unknown): string {
     return JSON.stringify(o, (key, value) => {
       if (typeof value === 'function') throw new Error(`Cannot serialize function at ${key}`)
       if (value === undefined) throw new Error(`Cannot serialize \`undefined\` at ${key}`)
