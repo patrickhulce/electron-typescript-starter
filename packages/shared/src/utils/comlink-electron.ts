@@ -1,11 +1,10 @@
 type PromiseFnOrNever<TFn> = TFn extends (...args: any[]) => Promise<infer U> ? TFn : never
 
-type PromiseInterface<TInterface> = {
+export type PromiseInterface<TInterface> = {
   [K in keyof TInterface]: PromiseFnOrNever<TInterface[K]>
 }
 
 const MESSAGE_CHANNEL = '__comlink-electron__'
-const MAX_LISTENERS = 10000
 
 export enum ComlinkMessageType {
   ExecutionRequest = 'execution-request',
@@ -48,6 +47,10 @@ export class ComlinkElectron {
   private _source: ComlinkTarget
   private _executionId: number
 
+  public static get MESSAGE_CHANNEL(): string {
+    return MESSAGE_CHANNEL
+  }
+
   public constructor(source: ComlinkTarget) {
     this._source = source
     this._executionId = 1
@@ -62,7 +65,7 @@ export class ComlinkElectron {
   }
 
   private _waitForExecutionResult(
-    ipcRenderer: import('electron').IpcRenderer,
+    ipcRenderer: import('electron').IpcRenderer | import('electron').IpcMain,
     id: number,
   ): Promise<any> {
     return new Promise((resolve, reject) => {
@@ -106,18 +109,22 @@ export class ComlinkElectron {
 
   /**
    * The method used to get a client for an interface.
-   * @param ipcRendererChannel The message channel in the renderer process to communicate with
+   * @param sendChannel The message channel in the renderer process to communicate with
    * @param target The comlink target you're trying to talk to
    */
   public wrap<TInterface>(
-    ipcRendererChannel: import('electron').IpcRenderer,
+    sendChannel: import('electron').IpcRenderer | import('electron').WebContents,
+    receiveChannel: import('electron').IpcRenderer | import('electron').IpcMain,
     target: ComlinkTarget,
   ): PromiseInterface<TInterface> {
-    ipcRendererChannel.setMaxListeners(MAX_LISTENERS)
     const proxy: any = new Proxy(
       {},
       {
         get: (o: any, fnName: string) => {
+          if (fnName === 'then') return undefined
+          if (fnName === 'catch') return undefined
+          if (fnName === 'finally') return undefined
+
           return (...args: any[]) => {
             const executionId = this._executionId++
             const message: ComlinkRequestMessage = {
@@ -129,8 +136,8 @@ export class ComlinkElectron {
               serializedArgs: this.serialize(args),
             }
 
-            ipcRendererChannel.send(MESSAGE_CHANNEL, message)
-            return this._waitForExecutionResult(ipcRendererChannel, executionId)
+            sendChannel.send(MESSAGE_CHANNEL, message)
+            return this._waitForExecutionResult(receiveChannel, executionId)
           }
         },
       },
@@ -146,7 +153,7 @@ export class ComlinkElectron {
     const listener = async (event: import('electron').Event, message: ComlinkElectronMessage) => {
       if (message.type !== ComlinkMessageType.ExecutionRequest) return
       const {fnName, source, destination, executionId, serializedArgs} = message
-      if (destination !== source) return
+      if (destination !== this._source) return
 
       let reply: ComlinkResultMessage = {
         type: ComlinkMessageType.ExecutionResult,

@@ -2,8 +2,8 @@
   "compileOnSave": true,
   "compilerOptions": {
     "module": "commonjs",
-    "esModuleInterop": true,
     "target": "es2019",
+    "esModuleInterop": true,
     "sourceMap": true,
     "inlineSources": true,
     "outDir": "./dist-dev",

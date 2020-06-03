@@ -5,6 +5,8 @@
   "version": "0.0.0",
   "main": "../../dist-dev/electron/src/main/entry.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "build": "tsc",
+    "build:watch": "tsc -w"
   }
 }
