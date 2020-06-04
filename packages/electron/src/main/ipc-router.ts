@@ -1,9 +1,10 @@
+import {BrowserWindow, ipcMain, IpcMainEvent} from 'electron'
+
 import {
   ComlinkTarget,
   PromiseInterface,
   ComlinkElectron,
 } from '../../../shared/src/utils/comlink-electron'
-import {BrowserWindow, ipcMain, IpcMainEvent} from 'electron'
 
 const comlink = new ComlinkElectron(ComlinkTarget.MainProcess)
 

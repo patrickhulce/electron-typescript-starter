@@ -1,13 +1,15 @@
-import express from 'express'
 import {createServer} from 'http'
-import {findFrontendDirectory} from '../../utils/filesystem'
-import {createLogger} from '../../../../shared/src/utils/logging'
+
+import {ipcRenderer} from 'electron'
+import express from 'express'
+
 import {
   ComlinkElectron,
   ComlinkTarget,
   PromiseInterface,
 } from '../../../../shared/src/utils/comlink-electron'
-import {ipcRenderer} from 'electron'
+import {createLogger} from '../../../../shared/src/utils/logging'
+import {findFrontendDirectory} from '../../utils/filesystem'
 
 const log = createLogger('electron:server')
 

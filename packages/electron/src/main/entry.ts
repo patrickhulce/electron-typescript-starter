@@ -1,8 +1,10 @@
 import {app, BrowserWindow} from 'electron'
-import {createLogger} from '../../../shared/src/utils/logging'
+
 import {ComlinkTarget} from '../../../shared/src/utils/comlink-electron'
-import {createWorker, initIpcRouter} from './ipc-router'
+import {createLogger} from '../../../shared/src/utils/logging'
 import {ServerWorker} from '../worker/server/server'
+
+import {createWorker, initIpcRouter} from './ipc-router'
 
 const log = createLogger('electron:main')
 
