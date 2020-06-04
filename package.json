@@ -3,10 +3,12 @@
   "name": "electron-typescript-starter",
   "description": "The production package.json for the published app.",
   "version": "1.0.0",
+  "main": "dist-ts/electron/src/main/entry.js",
   "scripts": {
     "build": "tsc && cd packages/frontend && yarn build",
     "build:watch": "bash ./scripts/build-watch.sh",
     "start": "cd packages/electron && yarn start",
+    "package": "bash ./scripts/package.sh",
     "test": "yarn test:lint",
     "test:lint": "eslint . --ext .ts,.tsx"
   },
