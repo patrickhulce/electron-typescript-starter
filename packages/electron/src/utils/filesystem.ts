@@ -13,10 +13,8 @@ export function findDirectory(
   generateOptionsFn: (dir: string) => string[],
   extraConditionFn?: (dir: string) => boolean,
 ): string {
-  let attempt = 0
   let directory = path.join(__dirname, '../')
-  while (true) {
-    attempt++
+  for (let attempt = 0; attempt < 100; attempt++) {
     const dirOptions = generateOptionsFn(directory)
     for (const dir of dirOptions) {
       if (fs.existsSync(dir)) {
@@ -27,7 +25,8 @@ export function findDirectory(
 
     const lastDir = directory
     directory = path.join(directory, '../')
-    if (lastDir === directory || attempt > 100)
-      throw new Error(`Unable to locate ${name} directory`)
+    if (lastDir === directory) throw new Error(`Unable to locate ${name} directory`)
   }
+
+  throw new Error(`Unable to locate ${name} directory`)
 }

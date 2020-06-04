@@ -1,7 +1,7 @@
 const levels = ['error', 'warn', 'info', 'verbose', 'debug', 'silly']
 
 export function createLogger(scope: string): typeof import('electron-log') {
-  let log: any = {}
+  const log: any = {}
   try {
     const electronLog = eval(`require('electron-log')`)
     levels.forEach(level => (log[level] = electronLog[level]))

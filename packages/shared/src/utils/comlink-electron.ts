@@ -155,7 +155,7 @@ export class ComlinkElectron {
       const {fnName, source, destination, executionId, serializedArgs} = message
       if (destination !== this._source) return
 
-      let reply: ComlinkResultMessage = {
+      const reply: ComlinkResultMessage = {
         type: ComlinkMessageType.ExecutionResult,
         executionId,
         source: destination,

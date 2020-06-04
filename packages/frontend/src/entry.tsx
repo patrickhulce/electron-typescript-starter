@@ -12,7 +12,7 @@ function getOrCreateDiv(id: string): HTMLElement {
 }
 
 async function renderApp(): Promise<void> {
-  const AppComponent = require('./app').App
+  const AppComponent = require('./app').App // eslint-disable-line @typescript-eslint/no-var-requires
   const root = getOrCreateDiv('react-root')
   unmountComponentAtNode(root)
 
